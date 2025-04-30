@@ -1,33 +1,134 @@
 using System;
-using library;
+using System.Collections.Generic;
 
-class Program
+namespace library
 {
-    static void Main()
+    class Program
     {
-        Biblioteca biblioteca = new Biblioteca();
+        static List<LibraryItem> itens = new List<LibraryItem>();
+        static List<Membro> membros = new List<Membro>();
+        static List<Transaction> transacoes = new List<Transaction>();
 
-        // Adicionando membros
-        biblioteca.AdicionarMembro(new Membro { IdDoMembro = "001", Nome = "Jonatan", Email = "jonatan@gomes.com", NumeroDeTelefone = "99999-0000" });
-        biblioteca.AdicionarMembro(new Membro { IdDoMembro = "002", Nome = "Maria", Email = "maria@email.com", NumeroDeTelefone = "88888-0000" });
+        static void Main(string[] args)
+        {
+            int opcao;
+            do
+            {
+                Console.WriteLine("\n--- Biblioteca ---");
+                Console.WriteLine("1. Cadastrar Livro");
+                Console.WriteLine("2. Cadastrar Revista");
+                Console.WriteLine("3. Cadastrar Membro");
+                Console.WriteLine("4. Realizar Empréstimo");
+                Console.WriteLine("5. Exibir Itens");
+                Console.WriteLine("6. Exibir Membros");
+                Console.WriteLine("7. Exibir Transações");
+                Console.WriteLine("0. Sair");
+                Console.Write("Escolha uma opção: ");
+                int.TryParse(Console.ReadLine(), out opcao);
 
-        Console.WriteLine("\n--- Membros ---");
-        biblioteca.ListarMembros();
+                switch (opcao)
+                {
+                    case 1: CadastrarLivro(); break;
+                    case 2: CadastrarRevista(); break;
+                    case 3: CadastrarMembro(); break;
+                    case 4: RealizarEmprestimo(); break;
+                    case 5: ExibirItens(); break;
+                    case 6: ExibirMembros(); break;
+                    case 7: ExibirTransacoes(); break;
+                    case 0: Console.WriteLine("Encerrando..."); break;
+                    default: Console.WriteLine("Opção inválida!"); break;
+                }
+            } while (opcao != 0);
+        }
 
-        // Adicionando itens
-        biblioteca.AdicionarItem(new Livro("C# Básico", "Autor A", "ISBN123", "2021", 12));
-        biblioteca.AdicionarItem(new Revista("Revista Tech", "Editor B", "ISBN456", "2022", 5));
+        static void CadastrarLivro()
+        {
+            Console.Write("Título: ");
+            string titulo = Console.ReadLine();
+            Console.Write("Autor: ");
+            string autor = Console.ReadLine();
+            Console.Write("ISBN: ");
+            string isbn = Console.ReadLine();
+            Console.Write("Ano de Publicação: ");
+            string ano = Console.ReadLine();
+            Console.Write("Quantidade de Capítulos: ");
+            int qtdCap = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("\n--- Itens da Biblioteca ---");
-        biblioteca.ListarItens();
+            itens.Add(new Livro(titulo, autor, isbn, ano, qtdCap));
+            Console.WriteLine("Livro cadastrado com sucesso!");
+        }
 
-        // Emprestando
-        biblioteca.EmprestarItem("001", "ISBN123");
+        static void CadastrarRevista()
+        {
+            Console.Write("Título: ");
+            string titulo = Console.ReadLine();
+            Console.Write("Autor: ");
+            string autor = Console.ReadLine();
+            Console.Write("ISBN: ");
+            string isbn = Console.ReadLine();
+            Console.Write("Ano de Publicação: ");
+            string ano = Console.ReadLine();
+            Console.Write("Quantidade de Artigos: ");
+            int qtdArt = int.Parse(Console.ReadLine());
 
-        // Devolvendo
-        biblioteca.DevolverItem("ISBN123");
+            itens.Add(new Revista(titulo, autor, isbn, ano, qtdArt));
+            Console.WriteLine("Revista cadastrada com sucesso!");
+        }
 
-        Console.WriteLine("\nPressione qualquer tecla para sair...");
-        Console.ReadKey();
+        static void CadastrarMembro()
+        {
+            Console.Write("ID do Membro: ");
+            string id = Console.ReadLine();
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+            Console.Write("Email: ");
+            string email = Console.ReadLine();
+            Console.Write("Telefone: ");
+            string telefone = Console.ReadLine();
+
+            membros.Add(new Membro { IdDoMembro = id, Nome = nome, Email = email, NumeroDeTelefone = telefone });
+            Console.WriteLine("Membro cadastrado com sucesso!");
+        }
+
+        static void RealizarEmprestimo()
+        {
+            Console.Write("ID da Transação: ");
+            string transId = Console.ReadLine();
+            Console.Write("ID do Membro: ");
+            string membroId = Console.ReadLine();
+            Console.Write("ISBN do Item: ");
+            string itemId = Console.ReadLine();
+
+            transacoes.Add(new Transaction(transId, membroId, itemId));
+            Console.WriteLine("Empréstimo registrado com sucesso!");
+        }
+
+        static void ExibirItens()
+        {
+            Console.WriteLine("\n--- Itens da Biblioteca ---");
+            foreach (var item in itens)
+            {
+                item.DisplayInfo();
+                Console.WriteLine();
+            }
+        }
+
+        static void ExibirMembros()
+        {
+            Console.WriteLine("\n--- Membros ---");
+            foreach (var m in membros)
+            {
+                Console.WriteLine($"ID: {m.IdDoMembro}, Nome: {m.Nome}, Email: {m.Email}, Telefone: {m.NumeroDeTelefone}");
+            }
+        }
+
+        static void ExibirTransacoes()
+        {
+            Console.WriteLine("\n--- Transações ---");
+            foreach (var t in transacoes)
+            {
+                Console.WriteLine($"ID Transação: {t.TransactionID}, Membro: {t.MemberID}, Item: {t.LibraryItemID}, Data: {t.BorrowDate}");
+            }
+        }
     }
 }

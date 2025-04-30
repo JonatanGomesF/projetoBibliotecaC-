@@ -1,22 +1,9 @@
-# Build results
+# Ignorar arquivos e pastas do Visual Studio
+.vs/
 bin/
 obj/
-*.exe
-*.dll
-
-# Visual Studio files
-.vs/
 *.user
 *.suo
 *.cache
-
-# Backup & logs
 *.log
 *.tmp
-
-# OS files
-Thumbs.db
-.DS_Store
-
-# Rider (JetBrains)
-.idea/
