@@ -1,0 +1,5 @@
+
+//lista privada que armazena lista dentro de transactions
+
+privaty static readonly List<Transaction> transactions = [ ];
+
