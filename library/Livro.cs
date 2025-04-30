@@ -13,7 +13,7 @@ namespace library
         }
         public override void DisplayInfo()
         {
-        base:DisplayInfo()
+        base.DisplayInfo();
             Console.WriteLine($"Quantidade de capitulos: {QtdCapitulo}");
         }
     }
