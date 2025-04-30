@@ -13,7 +13,8 @@ namespace library
         }
         public override void DisplayInfo()
         {
-            Console.WriteLine($"Título: {Titulo}, Autor: {Autor}, ISBN: {ISBN}, Ano de Publicação: {AnoPublicacao}, Capítulos: {QtdCapitulo}");
+        base:DisplayInfo()
+            Console.WriteLine($"Quantidade de capitulos: {QtdCapitulo}");
         }
     }
 }
